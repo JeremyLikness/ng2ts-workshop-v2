@@ -100,25 +100,25 @@ Working with `Observable` and understanding asynchronous operations, including t
 
 [Click here for the lab](./35-AsyncRxJs/README.md)
 
-### 40 Routing 
+### 40 Routing (30 minutes)
 
 How to use journaling, bookmarks, and query string data in Angular with the `Routing Moudle`.
 
 [Click here for the lab](./40-Routing/README.md)
 
-### 45 Angular with Redux 
+### 45 Angular with Redux (45 minutes)
 
 State management in Angular applications using Redux.
 
 [Click here for the lab](./45-Redux/README.md)
 
-### 50 Angular Testing 
+### 50 Angular Testing (20 minutes)
 
 Better understanding Angular Unit tests and workflow. 
 
 [Click here for the lab](./50-Testing/README.md)
 
-### 55 Angular and Docker 
+### 55 Angular and Docker (30 minutes)
 
 How to containerize Angular apps and dependencies.
 
