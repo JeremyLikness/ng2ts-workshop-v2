@@ -95,7 +95,7 @@ This is a quick introduction to Angular.
 ```html
     <html>
     <head>
-        <title>Connect.TECH Angular 2 Lab</title>
+        <title>DevNexus Angular 2 Lab</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles.css">
 
