@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ExperimentComponent } from './experiment/experiment.component';
+import { FocusDirective } from './focus.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExperimentComponent
+    ExperimentComponent,
+    FocusDirective
   ],
   imports: [
     BrowserModule,
