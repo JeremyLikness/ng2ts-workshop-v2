@@ -11,6 +11,8 @@ export class ExperimentComponent implements OnInit {
 
   @ViewChild('componentReferenced')
   public element: ElementRef;
+
+  public dateProperty: Date = new Date(); 
   
   constructor() { }
 
