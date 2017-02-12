@@ -197,7 +197,7 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
             let change = val !== this._colorValue;
             this._colorValue = val; 
             if (change) {
-                this.onColorValueChange.emit(val);
+                this.colorValueChange.emit(val);
             }
         }
 
@@ -214,19 +214,21 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
 ```
 6. Add red, green, and blue properties to `app.component.ts`:
 
-    ```TypeScript 
+```TypeScript 
     public red: number = 64;
     public green: number = 128; 
     public blue: number = 192; 
 ```
 7. Finally, update `app.component.html` to interact between the three sliders and add a new color square. Enjoy! 
 
-    ```html
+```html
     <h1>
         {{title}}
     </h1>
     <app-color [red]="red" [green]="green" [blue]="blue"></app-color>
-    <app-color-slider [color]="'red'" [colorValue]="red" (onColorValueChange)="red=$event"></app-color-slider>
-    <app-color-slider [color]="'green'" [colorValue]="green" (onColorValueChange)="green=$event"></app-color-slider>
-    <app-color-slider [color]="'blue'" [colorValue]="blue" (onColorValueChange)="blue=$event"></app-color-slider>
+    <app-color-slider [color]="'red'" [(colorValue)]="red"></app-color-slider>
+    <app-color-slider [color]="'green'" [(colorValue)]="green"></app-color-slider>
+    <app-color-slider [color]="'blue'" [(colorValue)]="blue"></app-color-slider>
 ```
+
+>**Bonus**: right now the red, green, and blue tiles only show the intensity and not the color. Update the example so that the squares show the component color *and* intensity.

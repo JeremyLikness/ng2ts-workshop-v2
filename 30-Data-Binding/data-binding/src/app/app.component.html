@@ -1,6 +1,7 @@
 <h1>
   {{title}}
 </h1>
-<app-color-slider [color]="'red'"></app-color-slider>
-<app-color-slider [color]="'green'"></app-color-slider>
-<app-color-slider [color]="'blue'"></app-color-slider>
+<app-color [red]="red" [green]="green" [blue]="blue"></app-color>
+<app-color-slider [color]="'red'" [(colorValue)]="red"></app-color-slider>
+<app-color-slider [color]="'green'" [(colorValue)]="green"></app-color-slider>
+<app-color-slider [color]="'blue'" [(colorValue)]="blue"></app-color-slider>
