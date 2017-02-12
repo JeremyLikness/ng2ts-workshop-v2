@@ -136,21 +136,21 @@ Components always have associated templates. Directives apply behaviors to eleme
 3. Open `focus.directive.ts` and import `ElementRef` from `@angular/core` 
 4. Inject the element the directive is associated with in the constructor, then use a timeout to set the focus in the next event loop: 
 
-    ```TypeScript
+```TypeScript
     constructor(private elem: ElementRef) {
         setTimeout(() => this.elem.nativeElement.focus(), 0);
     }
 ```
 5. Open `experiment.component.html` and use the directive on the second `input` tag: 
 
-    ```html
+```html
     <input appFocus type="text" [(ngModel)]="data"/>`
 ```
 6. Save and allow the browser to refresh. It should automatically set focus to the second `input` tag so you can begin typing right away.
 7. Import `Input` from `@angular/core` in `focus.directive.ts`
 8. Update the directive to support a parameter. The code should be changed to: 
 
-    ```TypeScript
+```TypeScript
     export class FocusDirective {
 
         private _timeout: number = 0;
@@ -174,7 +174,7 @@ Components always have associated templates. Directives apply behaviors to eleme
 ```
 9. Update `experiment.component.html` to use the parameter: 
 
-    ```html
+```html
     <input appFocus [appFocusTimeout]="2000" type="text" [(ngModel)]="data"/>`
 ```
 10. Save and notice the 2 second delay before focus is set 
@@ -185,12 +185,12 @@ Pipes provide simple data transformations.
 
 1. Add a property to `experiment.component.ts` with a date: 
 
-    ```TypeScript
+```TypeScript
 public dateProperty: Date = new Date(); 
 ```
 2. Add the following to the end of `experiment.component.html`: 
 
-    ```html
+```html
     <p>{{dateProperty}}</p>
     <p>{{dateProperty|date}}</p>
     <p>{{dateProperty|date:'shortDate'}}</p>
@@ -199,7 +199,7 @@ public dateProperty: Date = new Date();
 4. Create a pipe: `ng g pipe reverse` 
 5. Open `reverse.pipe.ts` and update the code to reflect the following: 
 
-    ```TypeScript
+```TypeScript
     export class ReversePipe implements PipeTransform {
 
         transform(value: string, substr?: number): any {
@@ -217,7 +217,7 @@ public dateProperty: Date = new Date();
 ```
 6. Modify the `p` data-binding to `data` in `experiment.component.html` to use the pipe: 
 
-    ```html
+```html
 <p>{{data|reverse:20}}</p>
 ```
 7. Save and begin typing when the browser refreshes and the second input box receives focus. Watch the effect. 

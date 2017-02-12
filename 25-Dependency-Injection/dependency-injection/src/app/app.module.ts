@@ -4,17 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { ShowNumberComponent } from './show-number/show-number.component';
+
+import { NumberService } from './number.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShowNumberComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [NumberService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
