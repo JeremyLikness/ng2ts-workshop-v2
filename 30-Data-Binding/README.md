@@ -76,7 +76,7 @@ public value: number = 0;
     <app-color [red]="colorValue" [green]="colorValue" [blue]="colorValue"></app-color> 
     <app-slider [value]="colorValue"></app-slider>
 ```
-    Notice you receive an error (can't bind to 'red|green|blue' because it isn't a known property of 'app-color', etc.)! This is because the properties weren't explicitly exposed for external data-binding, only internal data-binding between the components and their templates. Go ahead and add the sliders to the main `app.component.html` anyway: 
+Notice you receive an error (can't bind to 'red|green|blue' because it isn't a known property of 'app-color', etc.)! This is because the properties weren't explicitly exposed for external data-binding, only internal data-binding between the components and their templates. Go ahead and add the sliders to the main `app.component.html` anyway: 
 
 ```html
     <app-color-slider [color]="'red'"></app-color-slider>
@@ -143,7 +143,7 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
         return this._value;
     }
 ```
-    This way you can intercept whenever a change is passed into the value. 
+This way you can intercept whenever a change is passed into the value. 
 
 3. Next, add an `EventEmitter` to raise a custom event whenever the value changes, and update the setter to use the event: 
 
@@ -165,7 +165,8 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
 ```html
     <app-slider [value]="colorValue" (valueChange)="colorValue=$event"></app-slider> 
 ```
-    Compile and run the application, and you should see the shades of the squares change! Now let's roll these all up to a parent color component. 
+
+Compile and run the application, and you should see the shades of the squares change! Now let's roll these all up to a parent color component. 
 
 >Note: you can use a shorthand notation for two-way data-binding. When you give the event emitter the same name as the input property, and add `Change` to the end, Angular can infer the relationship because on the naming convention. Therefore, instead of explicitly handling the change event, you can change the line above to this instead: 
 >```html 
