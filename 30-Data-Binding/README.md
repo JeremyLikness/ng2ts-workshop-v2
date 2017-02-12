@@ -167,9 +167,14 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
 ```
     Compile and run the application, and you should see the shades of the squares change! Now let's roll these all up to a parent color component. 
 
+>Note: you can use a shorthand notation for two-way data-binding. When you give the event emitter the same name as the input property, and add `Change` to the end, Angular can infer the relationship because on the naming convention. Therefore, instead of explicitly handling the change event, you can change the line above to this instead: 
+>```html 
+><app-slider [(value)]="colorValue"></app-slider> 
+>```
+
 5. Add an event to the color slider component: 
 
-    ```TypeScript
+```TypeScript
     import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
     @Component({
@@ -182,7 +187,7 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
         private _colorValue: number = 127;
 
         @Output()
-        public onColorValueChange: EventEmitter<number> = new EventEmitter<number>();
+        public colorValueChange: EventEmitter<number> = new EventEmitter<number>();
 
         @Input()
         public color: string = 'red'; 
