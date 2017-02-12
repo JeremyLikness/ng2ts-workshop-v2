@@ -87,14 +87,14 @@ public value: number = 0;
 
 Inputs allow you to specify what properties are available for data-binding. You can only data-bind to a property on the component that is exposed via the `@Input` decorator. 
 
-1. Whenever you need to expose an `Input`, import it from `@angular/core`: 
+1. Whenever you need to expose an `Input`, import it from `@angular/core` (for the `color.component`): 
 
 ```TypeScript
 import { Component, OnInit, Input } from '@angular/core';
 ```
 2. Give the color component inputs for red, green, and blue properties:     
 
-    ```TypeScript
+```TypeScript
     @Input()
     public red: number = 127;
 
@@ -106,13 +106,13 @@ import { Component, OnInit, Input } from '@angular/core';
 ```
 3. Give the slider component an input for the values:  
 
-    ```TypeScript
+```TypeScript
     @Input()
     public value: number = 0;
 ```
 4. Give the color-slider component an input for its values: 
 
-    ```TypeScript
+```TypeScript
     @Input()
     public color: string = 'red'; 
 
