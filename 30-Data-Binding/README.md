@@ -131,9 +131,10 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
 
 2. Refactor the component to use a getter and setter for the properties: 
 
-    ```TypeScript
+```TypeScript
     private _value: number;
     
+    @Input()
     public set value(val: number) {
         this._value = val;
     }
@@ -146,23 +147,23 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
 
 3. Next, add an `EventEmitter` to raise a custom event whenever the value changes, and update the setter to use the event: 
 
-    ```TypeScript
+```TypeScript
     @Output()
-    public onValueChange: EventEmitter<number> = new EventEmitter<number>();
+    public valueChange: EventEmitter<number> = new EventEmitter<number>();
 
     @Input()
     public set value(val: number) {
         let change = val !== this._value;
         this._value = val;
         if (change) {
-            this.onValueChange.emit(val);
+            this.valueChange.emit(val);
         }
     }
 ```
 4. Finally, listen to the event in `color\color-slider.html` and use it to refresh the value: 
 
-    ```html
-    <app-slider [value]="colorValue" (onValueChange)="colorValue=$event"></app-slider> 
+```html
+    <app-slider [value]="colorValue" (valueChange)="colorValue=$event"></app-slider> 
 ```
     Compile and run the application, and you should see the shades of the squares change! Now let's roll these all up to a parent color component. 
 
