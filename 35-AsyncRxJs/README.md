@@ -95,12 +95,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
 
 5. Simplify the input tag to this: 
 
-    ```html
+```html
 <input #filter type="text" placeholder="enter filter"/>
 ```
+
 6. Update the `reader\reader.component.ts` to use observables to watch the input events, debounce, avoid duplicates, etc.: 
 
-    ```TypeScript
+```TypeScript
     import { Component, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
     import { Http } from '@angular/http';
@@ -144,7 +145,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
     }
 ```
 
-    Notice that because the result is updated from inside a subscription, Angular 2 won't know the model has mutated (it's outside of a zone) so we use the change detector to detect the changes. When you type, notice there is nothing happening until you pause. Then it will return the error message or the filtered words based on what you type. If you started typing in the error condition, refresh and select the good file to see the filter in action.
+>Notice that because the result is updated from inside a subscription, Angular 2 won't know the model has mutated (it's outside of a zone) so we use the change detector to detect the changes. When you type, notice there is nothing happening until you pause. Then it will return the error message or the filtered words based on what you type. If you started typing in the error condition, refresh and select the good file to see the filter in action.
+
+>You may receive warning messages "there are multiple modules with names that only differ in casing." This is a result of the libraries that are imported and can be safely ignored. 
 
 ## Polling 
 
