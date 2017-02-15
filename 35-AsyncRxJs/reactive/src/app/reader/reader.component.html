@@ -2,5 +2,6 @@
         <option id="sample.dat" selected="selected">Bad File</option>
         <option id="sample.txt">Good File</option>
     </select>
-<button (click)="loadFile(selection.options[selection.selectedIndex].id)">Load</button>
+<input #filter type="text" placeholder="enter filter" (keyup)="loadFile(filter.value, selection.options[selection.selectedIndex].id)"
+/>
 <p>{{result || 'Choose a file and click the load button'}}</p>

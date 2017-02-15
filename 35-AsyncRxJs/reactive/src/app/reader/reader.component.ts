@@ -13,9 +13,11 @@ export class ReaderComponent implements OnInit {
 
   constructor(private http: Http) { }
 
-  public loadFile(fileName: string): void {
+  public loadFile(filter: string, fileName: string): void {
     this.http.get('assets/' + fileName)
-      .subscribe(result => this.result = result.text(), error => this.result = error);
+      .subscribe(result =>
+        this.result = result.text().split(' ').filter(line => line.indexOf(filter) >= 0).join(' '),
+      error => this.result = error);
   }
 
   ngOnInit() {

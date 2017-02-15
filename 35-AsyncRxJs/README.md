@@ -62,12 +62,13 @@ RxJS, or [ReactiveX](http://reactivex.io/), is a library that implements a speci
 
 1. For a more complex stream, paste the following text to `assets\sample.txt`: 
 
-    ```
+```
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eget placerat. Nulla facilisi. Aliquam tristique ante sit amet dictum sollicitudin. Proin varius vehicula gravida. Fusce lectus metus, condimentum sed auctor in, dictum ac sem. Cras laoreet pulvinar nibh, sed luctus mi cursus sit amet. Praesent ultricies lobortis iaculis. Sed placerat lorem nec ultricies luctus. Donec quis dui faucibus ante egestas finibus. Nulla luctus tellus sed dapibus placerat. Mauris venenatis sollicitudin ornare. Cras dapibus, lectus eget consectetur dignissim, ipsum magna accumsan leo, ac volutpat lectus turpis ut nisl. Mauris quis justo nisl. Duis semper condimentum ullamcorper. Fusce tempus sapien id nunc dapibus, eget interdum arcu tristique.
 ```
+
 2. Remove the button, and add an `input` tag to the top of the `reader\reader.component.html` markup: 
 
-    ```html
+```html
     <input #filter type="text" placeholder="enter filter" 
         (keyup)="loadFile(filter.value, selection.options[selection.selectedIndex].id)"/>
 ```
@@ -75,7 +76,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
 
 3. Implement the function to filter words based on user input in `reader\reader.component.ts`: 
 
-    ```TypeScript 
+```TypeScript 
     public loadFile(filter: string, fileName: string): void {
         this.http.get('assets/' + fileName)
         .subscribe(result =>
@@ -83,6 +84,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
             error => this.result = error);
     }
 ```
+
 4. Notice that the filter is applied immediately as you type. Now we will update the stream to debounce so that we: 
 
     4a. Don't filter until the user pauses typing 

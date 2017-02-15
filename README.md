@@ -38,6 +38,8 @@ Make a few starter projects like this:
 
 > Note: This repository contains several projects in their finished state. If you wish to pull down an initial version that you can use as a starting point, use commit [56c194d](https://github.com/JeremyLikness/ng2ts-workshop-v2/commit/56c194d1fae2bac3d8bc75038f7025483e33a6b5). Many of the labs involve transitory states to teach functionality in an iterative fashion. Although you can run the existing labs, it is recommended you walk through the code tutorials to receive the full benefit. For the existing labs, change to the root directory of any given lab and run `npm install` then `ng serve` to view the lab. For the labs you work on, it is suggested you create your own parent level folder, i.e. `lab`, to run the labs from (so you will end up with `lab\devnexus-ts-ng2` and `lab\dependency-injection` etc.)
 
+Each step of each lab was committed as an atomic unit, so if you wish to see the app at any state of the workshop, [browse the commits](https://github.com/JeremyLikness/ng2ts-workshop-v2/commits/master) and pull the state you desire.
+
 If you are having issues with your local environment, consider using the [Angular-CLI Container](https://github.com/JeremyLikness/ng2container) and note the instructions on mounting the appropriate folder.
 
 ## Modules
