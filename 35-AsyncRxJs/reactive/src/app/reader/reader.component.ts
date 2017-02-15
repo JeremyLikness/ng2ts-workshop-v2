@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
+import { GetDateService } from '../get-date.service';
+
 import { Http } from '@angular/http';
 
 import { Observable } from 'RxJs';
@@ -20,7 +22,9 @@ export class ReaderComponent implements AfterViewInit {
 
   public result: string;
 
-  constructor(private http: Http, private change: ChangeDetectorRef) { }
+  public dates: Date[] = [];
+
+  constructor(private http: Http, private change: ChangeDetectorRef, private svc: GetDateService) { }
 
   public loadFile(filter: string, fileName: string): Observable<string> {
     return this.http.get('assets/' + fileName)
@@ -37,5 +41,8 @@ export class ReaderComponent implements AfterViewInit {
         this.result = word;
         this.change.detectChanges();
       }, err => this.result = err);
+    Observable.interval(1000).switchMap(() => this.svc.getDate())
+      .take(10)
+      .subscribe(date => this.dates.push(date));
   }
 }

@@ -157,7 +157,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
 
 3. Place this code in `get-date.service.ts`:
 
-    ```TypeScript 
+```TypeScript 
     import { Injectable } from '@angular/core';
     import { Observable } from 'RxJs';
 
@@ -174,26 +174,29 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
 ```
 4. Import the date service into `reader\reader.component.ts`: 
 
-    ```TypeScript 
+```TypeScript 
 import { GetDateService } from '../get-date.service';
 ```
 5. Expose an array for dates and inject the date service into the constructor: 
 
-    ```TypeScript 
+```TypeScript 
     public dates: Date[] = [];
     constructor(private http: Http, private change: ChangeDetectorRef, private svc: GetDateService) { }
 ```
-6. Add the following code to poll. This will poll the date service every second, and stop after 10 polls. You can remove the `take` statement to continuously poll, and just as easily change the service to an http call instead of a date service call for real world scenarios. 
 
-    ```TypeScript
+6. Add the following code to poll to the end of the `ngAfterViewInit` method. This will poll the date service every second, and stop after 10 polls. You can remove the `take` statement to continuously poll, and just as easily change the service to an http call instead of a date service call for real world scenarios. 
+
+```TypeScript
     Observable.interval(1000).switchMap(() => this.svc.getDate())
         .take(10)
         .subscribe(date => this.dates.push(date));
 ```
+
 7. Update `reader\reader.component.html` to show the time portion of the dates (add this to the end): 
 
-    ```html
+```html
     <h2>Times</h2>
     <span *ngFor="let date of dates">{{date | date:'mm:ss'}}&nbsp;</span>
 ```
-    Refresh to watch the times scroll across every second and stop at 10 entries, and the ponder the amazing possibilities! 
+
+Refresh to watch the times scroll across every second and stop at 10 entries, and the ponder the amazing possibilities! Note you can also run your filter simultaneously without issue.

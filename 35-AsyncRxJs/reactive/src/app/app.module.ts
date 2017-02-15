@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ReaderComponent } from './reader/reader.component';
 
+import { GetDateService } from './get-date.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +18,7 @@ import { ReaderComponent } from './reader/reader.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [GetDateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

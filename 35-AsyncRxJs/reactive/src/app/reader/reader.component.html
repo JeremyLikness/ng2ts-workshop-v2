@@ -2,5 +2,7 @@
         <option id="sample.dat" selected="selected">Bad File</option>
         <option id="sample.txt">Good File</option>
     </select>
-<input #filter type="text" placeholder="enter filter"/>
+<input #filter type="text" placeholder="enter filter" />
 <p>{{result || 'Choose a file and click the load button'}}</p>
+<h2>Times</h2>
+<span *ngFor="let date of dates">{{date | date:'mm:ss'}}&nbsp;</span>
