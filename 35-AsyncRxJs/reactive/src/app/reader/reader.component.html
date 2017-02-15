@@ -1,0 +1,6 @@
+<select #selection>
+        <option id="sample.dat" selected="selected">Bad File</option>
+        <option id="sample.txt">Good File</option>
+    </select>
+<button (click)="loadFile(selection.options[selection.selectedIndex].id)">Load</button>
+<p>{{result || 'Choose a file and click the load button'}}</p>
