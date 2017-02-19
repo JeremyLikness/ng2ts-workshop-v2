@@ -250,3 +250,37 @@ The image is a static nginx webserver. The next step copies the output from the 
 6. Navigate to [http://localhost:80](http://localhost:80) to test it 
 
 7. Stop and remove the container (`docker stop ngbifurcrun` then `docker rm ngbifurcrun`) 
+
+## Compose 
+
+Docker Compose allows you to create a single file that will orchestrate multiple containers. It is a powerful solution because it creates a virtual network that only allows containers to communicate with each other (and are not available from the host machine) and only through explicitly configured ports. 
+
+1. Create a file `docker-compose.yml` in the parent directory above `bifurcation` and `ng-bifurcation` 
+
+2. Populate it: 
+```
+version: '2.1'
+
+services: 
+
+    bifurcation: 
+        build: ./bifurcation
+        ports:
+            - 3000:3000
+
+    web:
+        build: ./ng-bifurcation
+        ports: 
+            - 80:80 
+        depends_on: 
+            - bifurcation 
+``` 
+
+3. Run `docker-compose up`. Once it spins up, navigate to [http://localhost:80](http://localhost:80) to see the app running.
+
+4. Notice the console messages from the single bifurcation service 
+
+5. Stop the running console and type `docker-compose down` 
+
+This is compose! It created the two images and ran them simulatneously with unified console output for you to monitor. 
+
