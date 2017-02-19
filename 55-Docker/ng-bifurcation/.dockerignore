@@ -1,0 +1,13 @@
+e2e
+node_modules
+src 
+.dockerignore
+.editorconfig
+.gitignore
+angular-cli.json
+debug.log 
+karma.conf.json
+package.json
+protractor.conf.js
+README.md
+tslint.json

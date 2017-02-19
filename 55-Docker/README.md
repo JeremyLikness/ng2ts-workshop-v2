@@ -97,7 +97,7 @@ This first line uses a special image that will package the current Node.js app, 
 
 15. Test the image works by browsing to the same endpoint you did earlier
 
-16. Stop and remove the service
+16. Stop and remove the service (`docker stop bifurcsvc` then `docker rm bifurcsvc`)
 
 ## Angular App 
 
@@ -212,5 +212,41 @@ The component will store the height and width of the canvas, and a 2D context fo
 
 ![Bifurcation Diagram](./bifurc.png)
 
+## Create a Production Angular image
 
+1. Create a `.dockerignore` in the root of `ng-bifurcation` and add the following: 
+```
+e2e
+node_modules
+src 
+.dockerignore
+.editorconfig
+.gitignore
+angular-cli.json
+debug.log 
+karma.conf.json
+package.json
+protractor.conf.js
+README.md
+tslint.json
+```
 
+2. Create a `Dockerfile` and add: 
+
+`FROM nginx` 
+
+`ADD ./dist /usr/share/nginx/html` 
+
+`EXPOSE 80` 
+
+The image is a static nginx webserver. The next step copies the output from the `dist` folder (where the compiled Angular app is located) to the container in a directory that will be served, and the final command exposes the web port. 
+
+3. Build the Angular app for production with ahead-of-time template compilation: `ng build --prod --aot` 
+
+4. Build the Docker image: `docker build -t ngbifurc .` 
+
+5. Run the Docker image and test that it works (ensure the service is running, too!): `docker run -d --name ngbifurcrun -p 80:80 ngbifurc` 
+
+6. Navigate to [http://localhost:80](http://localhost:80) to test it 
+
+7. Stop and remove the container (`docker stop ngbifurcrun` then `docker rm ngbifurcrun`) 
