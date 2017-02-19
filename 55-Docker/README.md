@@ -284,3 +284,58 @@ services:
 
 This is compose! It created the two images and ran them simulatneously with unified console output for you to monitor. 
 
+## Scaling Services 
+
+1. Update the `docker-compose.yml` to this (be sure to overwrite the existing one because some of the existing services change)
+
+```
+version: '2.1'
+
+networks:
+    bifurcnet: {}
+
+services: 
+
+    bifurcation: 
+        build: ./bifurcation
+        ports:
+            - 3000
+        networks: 
+            - bifurcnet 
+
+    proxy:
+        image: dockercloud/haproxy
+        depends_on: 
+            - bifurcation 
+        ports: 
+            - 3000:80
+        links:
+            - bifurcation
+        networks:
+            - bifurcnet
+        environment:
+            - DOCKER_TLS_VERIFY
+            - DOCKER_HOST 
+            - DOCKER_CERT_PATH 
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+
+    web:
+        build: ./ng-bifurcation
+        ports: 
+            - 80:80 
+        depends_on: 
+            - proxy 
+```
+
+Notice that a network is declared, and that the port for the bifurcation service is just `3000` instead of `3000:3000`. This makes it only available to other containers and not from the host. The `proxy` service uses an existing proxy container that uses the `links` command to access the bifurcation service. The proxy by default exposes port 80, so that is mapped back to `3000`. The `environment` section makes certain environment variables set by the Docker host available to the container, and the `volumes` mounts a volume with the host for use. Note that the web service now depends on the proxy instead of the bifurcation service. 
+
+2. Run `docker-compose up` and then visit the website 
+
+You shouldn't notice any difference except the console information from the proxy. That's because only one instance of the bifurcation service is running. 
+
+3. Without stopping the current services, open a new command line prompt or console and type the following command: `docker-compose scale bifurcation=4`. You should see three more services created and started. 
+
+4. Refresh or open the website in a new tab. Watch the console. You should now see the requests are being load-balanced across all four instances of the service.
+
+5. You've successfully created and run an example of scaling your back end with Docker! 

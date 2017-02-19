@@ -1,15 +1,37 @@
 version: '2.1'
 
+networks:
+    bifurcnet: {}
+
 services: 
 
     bifurcation: 
         build: ./bifurcation
         ports:
-            - 3000:3000
+            - 3000
+        networks: 
+            - bifurcnet 
+
+    proxy:
+        image: dockercloud/haproxy
+        depends_on: 
+            - bifurcation 
+        ports: 
+            - 3000:80
+        links:
+            - bifurcation
+        networks:
+            - bifurcnet
+        environment:
+            - DOCKER_TLS_VERIFY
+            - DOCKER_HOST 
+            - DOCKER_CERT_PATH 
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
 
     web:
         build: ./ng-bifurcation
         ports: 
             - 80:80 
         depends_on: 
-            - bifurcation 
+            - proxy 
