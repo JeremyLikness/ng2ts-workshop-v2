@@ -2,6 +2,8 @@
 
 [Redux](http://redux.js.org/) is a "predictable state container for JavaScript apps." It has traditionally been closely associated with [React](https://facebook.github.io/react/) but is a standalone library that can work with any JavaScript framework. Redux can simplify the way you build and test your application, and more importantly the way you handle communication between components. In this module you'll see how to add Redux to an Angular application, and refactor an application to use the Redux store to propagate changes instead of relying on inter-component communication via the `Inputs` and `Outputs`. 
 
+See [Improving the State of your App with Redux](http://developer.telerik.com/topics/web-development/improving-state-app-redux/) for a comprehensive introduction and a different reference app. A more complex example is also provided at the end of this lab.
+
 >Module 30 (Data-Binding) is a prerequisite for this module because the completed project is a baseline for refactoring to use Redux.
 
 1. Create a new project `ng new ng-redux` 
