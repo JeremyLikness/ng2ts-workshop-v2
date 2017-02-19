@@ -97,6 +97,120 @@ This first line uses a special image that will package the current Node.js app, 
 
 15. Test the image works by browsing to the same endpoint you did earlier
 
+16. Stop and remove the service
+
+## Angular App 
+
+The Angular app will use the service to render a graph of the bifurcation diagram. Obviously the bifurcation equation could be run locally to the app, but this shows not only interaction with a service, but later you will see how to scale the service as well. For now, create a new Angular project from the parent folder of your `bifurcation` service so the created folder is a peer. 
+
+1. `ng new ng-bifurcation` 
+
+2. Make `ng-bifurcation` your working directory 
+
+3. Create a service to generate the bifurcation values: `ng g service bifurcation-generator` 
+
+4. Build the service. The service does a few things: first, it creates an Rx stream that will iterate each point along the width that is passed. Next, for the point it calculates a relative *r* value (0 - 4) and asynchronously calls the bifurcation service to get the array of *x* values back. Finally, it publishes the *r* and *x* values to an observable stream that the consumer can subscribe to.
+
+```TypeScript 
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { Http, URLSearchParams } from '@angular/http';
+
+export interface IBifurcation {
+  r: number;
+  x: number;
+}
+
+@Injectable()
+export class BifurcationGeneratorService {
+
+  constructor(public http: Http) { }
+
+  public generate(width: number): Observable<IBifurcation> {
+    let rIterator = Observable.range(0, width - 1).delay(1).map(x => (4.0 * x) / width),
+      sync = new Subject<IBifurcation>();
+  
+    rIterator.subscribe(r => {
+      let params = new URLSearchParams();
+      params.set("r", r.toString());
+      this.http.get('http://localhost:3000/', {
+        search: params
+      }).subscribe(res => {
+        let result = res.json();
+        if (result.result && result.result.length) {
+          result.result.forEach(x => sync.next({ r, x }));
+        }
+      });
+    });
+    return sync.asObservable();
+  }
+
+}
+```
+
+5. Import the `BifurcationGeneratorService` into the `app.module.ts` file and declare it in the `Providers` array:
+```TypeScript 
+import { BifurcationGeneratorService } from './bifurcation-generator.service';
+// etc. etc. 
+providers: [BifurcationGeneratorService],
+```
+
+6. Modifiy `app.component.html` to add a canvas: 
+```html
+<canvas width="1000" height="500" #canvas></canvas>
+```
+
+7. Update `app.component.ts`: 
+```TypeScript 
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+
+import { BifurcationGeneratorService, IBifurcation } from './bifurcation-generator.service';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements OnInit {
+  title = 'app works!';
+
+  private width: number;
+  private height: number;
+  private twoDContext: CanvasRenderingContext2D;
+
+  @ViewChild('canvas')
+  public canvasElem: ElementRef;
+
+  constructor(public generator: BifurcationGeneratorService) {}
+
+  ngOnInit() {
+    let canvas = <HTMLCanvasElement>this.canvasElem.nativeElement;
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.twoDContext = canvas.getContext('2d');
+    this.twoDContext.fillStyle = 'rgba(32, 64, 128, 0.75)';
+    this.generator.generate(this.width).subscribe(res => this.plot(res));
+  }
+
+  plot(point: IBifurcation) {
+    if (this.twoDContext) {
+      let x = this.width * (point.r / 4.0);
+      let y = Math.floor(this.height - (point.x * this.height));
+      this.twoDContext.fillRect(x, y, 2, 2);
+    }
+  }
+}
+```
+
+The component will store the height and width of the canvas, and a 2D context for drawing. The generator begins emitting *r* and *x* values that the `plot` method can use to plot a rectangle to the `canvas` element. 
+
+8. Start the service by running `npm start` in the `bifurcation` directory (or by running the image you created)
+
+9. Start the Angular app by running `ng serve` in the `ng-bifurcation` directory 
+
+10. After a delay, you should see the bifurcation diagram rendered similar to this image: 
+
+![Bifurcation Diagram](./bifurc.png)
 
 
 
