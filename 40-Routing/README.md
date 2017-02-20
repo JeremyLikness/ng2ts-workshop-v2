@@ -59,7 +59,7 @@ export class PlanetsService {
     {
       "Name": "Neptune",
       "Mass": 17,
-      "Diameter": 4876
+      "Diameter": 49500
     },
     {
       "Name": "Pluto",
@@ -156,7 +156,7 @@ Routes are more useful when they resolve to specific assets or resources, so you
 <h2>{{Name}}</h2>
 <ul>
   <li>Mass: {{Mass}} times the mass of earth 
-  <li>Diameter: {{Diameter|number:'3.0'}} miles 
+  <li>Diameter: {{Diameter|number:'3.0'}} kilometers 
 </ul>
 ```
 
@@ -259,5 +259,7 @@ Currently you must manually navigate. You saw how to programmatically navigate u
 <a routerLink="/planets">Go Back</a>
 ```
 
-4. Run the app and navigate back and forth 
+4. Run the app and navigate back and forth
+
+ 
 

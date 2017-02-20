@@ -1,0 +1,15 @@
+div.earth {
+    border-radius: 50%;
+    background: blue;
+    width: 25px;
+    height: 25px;
+    float: left;
+}
+
+div.planet {
+    border-radius: 50%;
+    background: darkblue;
+    min-width: 1px;
+    min-height: 1px;
+    float: left; 
+}

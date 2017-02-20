@@ -48,7 +48,7 @@ export class PlanetsService {
     {
       "Name": "Neptune",
       "Mass": 17,
-      "Diameter": 4876
+      "Diameter": 49500
     },
     {
       "Name": "Pluto",

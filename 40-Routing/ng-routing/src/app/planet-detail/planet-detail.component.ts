@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -13,12 +13,20 @@ import { PlanetsService } from '../planets.service';
 })
 export class PlanetDetailComponent implements OnInit {
 
+  @ViewChild('earth')
+  public earth: ElementRef;
+
+  @ViewChild('planet') 
+  public planet: ElementRef;
+
+  private earthDiameter: number;
+
   public Name: string;
   public Mass: number;
   public Diameter: number;
 
   constructor(private svc: PlanetsService, private router: Router, private route: ActivatedRoute) {
-
+    this.earthDiameter = svc.getPlanet('Earth').Diameter;
    }
 
   ngOnInit() {
@@ -28,11 +36,18 @@ export class PlanetDetailComponent implements OnInit {
         this.Name = planet.Name;
         this.Mass = planet.Mass;
         this.Diameter = planet.Diameter;
+        this.compareToEarth();
       }
       else {
         this.router.navigate(['/planets']);
       }
     });
+  }
+
+  compareToEarth() {
+    let ratio = this.Diameter / this.earthDiameter;
+    this.planet.nativeElement.style.width = `${25 * ratio}px`;
+    this.planet.nativeElement.style.height = `${25 * ratio}px`;
   }
 
 }
