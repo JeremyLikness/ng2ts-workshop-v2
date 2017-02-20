@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 
 import { PlanetsService } from './planets.service';
 import { PlanetsComponent } from './planets/planets.component';
+import { PlanetDetailComponent } from './planet-detail/planet-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlanetsComponent
+    PlanetsComponent,
+    PlanetDetailComponent
   ],
   imports: [
     BrowserModule,

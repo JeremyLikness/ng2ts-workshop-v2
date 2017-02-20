@@ -63,4 +63,13 @@ export class PlanetsService {
     return [...this._planets];
   }
 
+  public getPlanet(name: string): IPlanet {
+    for (let i = 0; i < this._planets.length; i+=1) {
+      if (this._planets[i].Name === name) {
+        return this._planets[i];
+      }
+    }
+    return null;
+  }
+
 }
