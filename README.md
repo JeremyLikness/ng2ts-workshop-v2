@@ -14,6 +14,8 @@ After installing Node.js, install the **[Angular-CLI](https://cli.angular.io/)**
 
 `npm i -g angular-cli@1.0.0-beta.24` 
 
+>Note: after this course was created, the Angular CLI was moved from `angular-cli` to `@angular/cli`. The former version still works and should be used for this workshop, as the new CLI version *has not been tested* with this workshop as of Feb 20 2017. You can safely ignore the errors about it being deprecated for now.
+
 **Visual Studio Code** Interactive Development Environment (IDE): [Install from this Link](https://code.visualstudio.com/)
 
 Optional Container Platform: **Docker** [Install from this Link](https://www.docker.com)
