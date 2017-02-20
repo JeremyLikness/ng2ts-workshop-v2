@@ -146,6 +146,8 @@ export class AppRoutingModule { }
 
 ## Create a Route with a Parameter 
 
+Routes are more useful when they resolve to specific assets or resources, so you can pull a parameter from the route. This step will create a detail to show the details of a planet.
+
 1. Generate a planet detail component: `ng g component planet-detail` 
 
 2. Populate the HTML for `planet-detail.component.html`: 
@@ -236,3 +238,26 @@ Notice the `:planet` is used to name the parameter. This is a placeholder that w
 7. Run the application and navigate to a bad route: [http://localhost:4200/planets/Luna](http://localhost:4200/planets/Luna). Notice you are kicked back to the `/planets` route. 
 
 8. Now navigate to a good route and you should see the detail: [http://localhost:4200/planets/Jupiter](http://localhost:4200/planets/Jupiter)
+
+## Router Links 
+
+Currently you must manually navigate. You saw how to programmatically navigate using the router, but what about from templates? 
+
+1. Modify `planets.component.html` to data-bind the route as a link in the list: 
+
+```html
+<ul>
+  <li *ngFor="let planet of planets"><a [routerLink]="'/planets/' + planet.Name">{{planet.Name}}</a></li>
+</ul>
+```
+
+2. Notice this is data-bound so the string expression for the `/planets/` portion of the path can be concatenated with the name of the planet. 
+
+3. Add a link that simply uses the attribute (without data-binding) to return to the main list: 
+
+```html
+<a routerLink="/planets">Go Back</a>
+```
+
+4. Run the app and navigate back and forth 
+
