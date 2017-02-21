@@ -76,7 +76,7 @@
     
     b. [003classes.ts](./ts-lab/examples/003classes.ts)
 
-    c. [004lambdas.ts](./1ATypeScript/examples/004lambdas.ts)
+    c. [004lambdas.ts](./ts-lab/examples/004lambdas.ts)
 
     d. [005complex.ts](./ts-lab/examples/005complex.ts)
 
