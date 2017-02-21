@@ -11,8 +11,7 @@ This is a quick introduction to Angular.
 3. `code .` 
 
 4. Create `package.json`: 
-
-```JavaScript 
+    ```JavaScript 
 {
     "name": "angular2-quickstart",
     "version": "1.0.0",
@@ -40,14 +39,13 @@ This is a quick introduction to Angular.
     }
 }
 ```
-
 5. From command line at root of project: `npm install` 
 
 6. Create `app` subdirectory 
 
 7. Create `app/app.component.js` 
 
-```JavaScript
+    ```JavaScript
     (function(app) {
         app.AppComponent =
         ng.core.Component({
@@ -61,10 +59,9 @@ This is a quick introduction to Angular.
         });
     })(window.app || (window.app = {}));
 ```
-
 8. Create `app/app.module.js` 
 
-```JavaScript
+    ```JavaScript
     (function(app) {
     app.AppModule =
         ng.core.NgModule({
@@ -80,7 +77,7 @@ This is a quick introduction to Angular.
 
 9. Create `app/main.js` 
 
-```JavaScript
+    ```JavaScript
     (function(app) {
         document.addEventListener('DOMContentLoaded', function() {
             ng.platformBrowserDynamic
@@ -92,7 +89,7 @@ This is a quick introduction to Angular.
 
 10. Create `index.html` 
 
-```html
+    ```html
     <html>
     <head>
         <title>DevNexus Angular 2 Lab</title>
@@ -130,7 +127,7 @@ This is a quick introduction to Angular.
 
 11. Create `styles.css` 
 
-```css
+    ```css
     h1 {
         color: #369;
         font-family: Arial, Helvetica, sans-serif;
@@ -142,6 +139,7 @@ This is a quick introduction to Angular.
 ```
 
 12. From command line: `npm start` 
+
 ## TypeScript Steps (with a little help from the CLI)
 
 1. From admin command line in parent directory: `ng new devnexus-ts-ng2`

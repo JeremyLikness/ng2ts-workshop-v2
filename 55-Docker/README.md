@@ -16,7 +16,7 @@ The *x* represents a percetnage of potential population and the *r* is a factor 
 
 4. Add the following section to `package.json`: 
 
-```JavaScript
+    ```JavaScript
 "dependencies": {
     "micro": "~6.2.0"
 }
@@ -28,7 +28,7 @@ The *x* represents a percetnage of potential population and the *r* is a factor 
 
 7. Create an `index.js` and populate it with this service: 
 
-```JavaScript 
+    ```JavaScript 
 const {send} = require('micro'),
     url = require('url'),
     id = Math.ceil(Math.random() * 999999);
@@ -69,11 +69,11 @@ module.exports = async (req, res) => {
 }
 ```
 
-The service tags itself with a unique identifier. It parses the query string to get the *r* value, then loads an array with the result of 89 iterations (it ignores the first 11 to allow the *x* value to settle). See how `micro` makes it easy to parse the request and send a response. 
+    The service tags itself with a unique identifier. It parses the query string to get the *r* value, then loads an array with the result of 89 iterations (it ignores the first 11 to allow the *x* value to settle). See how `micro` makes it easy to parse the request and send a response. 
 
 8. In the `package.json` add the following to the `scripts` section: 
 
-```JavaScript
+    ```JavaScript
 "start" : "micro" 
 ```
 
@@ -85,11 +85,11 @@ The service tags itself with a unique identifier. It parses the query string to 
 
 12. In the `Dockerfile` add: 
 
-`FROM node:6-onbuild`
-
-`EXPOSE 3000` 
-
-This first line uses a special image that will package the current Node.js app, and the second line allows the port to be accessed.
+    ```
+FROM node:6-onbuild`
+EXPOSE 3000` 
+```
+    This first line uses a special image that will package the current Node.js app, and the second line allows the port to be accessed.
 
 13. Build the Docker image: `docker build -t bifurc .` 
 
@@ -111,7 +111,7 @@ The Angular app will use the service to render a graph of the bifurcation diagra
 
 4. Build the service. The service does a few things: first, it creates an Rx stream that will iterate each point along the width that is passed. Next, for the point it calculates a relative *r* value (0 - 4) and asynchronously calls the bifurcation service to get the array of *x* values back. Finally, it publishes the *r* and *x* values to an observable stream that the consumer can subscribe to.
 
-```TypeScript 
+    ```TypeScript 
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Http, URLSearchParams } from '@angular/http';
@@ -149,19 +149,19 @@ export class BifurcationGeneratorService {
 ```
 
 5. Import the `BifurcationGeneratorService` into the `app.module.ts` file and declare it in the `Providers` array:
-```TypeScript 
+    ```TypeScript 
 import { BifurcationGeneratorService } from './bifurcation-generator.service';
 // etc. etc. 
 providers: [BifurcationGeneratorService],
 ```
 
 6. Modifiy `app.component.html` to add a canvas: 
-```html
+    ```html
 <canvas width="1000" height="500" #canvas></canvas>
 ```
 
 7. Update `app.component.ts`: 
-```TypeScript 
+    ```TypeScript 
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 
 import { BifurcationGeneratorService, IBifurcation } from './bifurcation-generator.service';
@@ -202,7 +202,7 @@ export class AppComponent implements OnInit {
 }
 ```
 
-The component will store the height and width of the canvas, and a 2D context for drawing. The generator begins emitting *r* and *x* values that the `plot` method can use to plot a rectangle to the `canvas` element. 
+    The component will store the height and width of the canvas, and a 2D context for drawing. The generator begins emitting *r* and *x* values that the `plot` method can use to plot a rectangle to the `canvas` element. 
 
 8. Start the service by running `npm start` in the `bifurcation` directory (or by running the image you created)
 
@@ -215,7 +215,7 @@ The component will store the height and width of the canvas, and a 2D context fo
 ## Create a Production Angular image
 
 1. Create a `.dockerignore` in the root of `ng-bifurcation` and add the following: 
-```
+    ```
 e2e
 node_modules
 src 
@@ -233,13 +233,12 @@ tslint.json
 
 2. Create a `Dockerfile` and add: 
 
-`FROM nginx` 
-
-`ADD ./dist /usr/share/nginx/html` 
-
-`EXPOSE 80` 
-
-The image is a static nginx webserver. The next step copies the output from the `dist` folder (where the compiled Angular app is located) to the container in a directory that will be served, and the final command exposes the web port. 
+    ```
+FROM nginx 
+ADD ./dist /usr/share/nginx/html 
+EXPOSE 80
+```
+    The image is a static nginx webserver. The next step copies the output from the `dist` folder (where the compiled Angular app is located) to the container in a directory that will be served, and the final command exposes the web port. 
 
 3. Build the Angular app for production with ahead-of-time template compilation: `ng build --prod --aot` 
 
@@ -258,7 +257,7 @@ Docker Compose allows you to create a single file that will orchestrate multiple
 1. Create a file `docker-compose.yml` in the parent directory above `bifurcation` and `ng-bifurcation` 
 
 2. Populate it: 
-```
+    ```
 version: '2.1'
 
 services: 
@@ -288,7 +287,7 @@ This is compose! It created the two images and ran them simulatneously with unif
 
 1. Update the `docker-compose.yml` to this (be sure to overwrite the existing one because some of the existing services change)
 
-```
+    ```
 version: '2.1'
 
 networks:
@@ -328,11 +327,11 @@ services:
             - proxy 
 ```
 
-Notice that a network is declared, and that the port for the bifurcation service is just `3000` instead of `3000:3000`. This makes it only available to other containers and not from the host. The `proxy` service uses an existing proxy container that uses the `links` command to access the bifurcation service. The proxy by default exposes port 80, so that is mapped back to `3000`. The `environment` section makes certain environment variables set by the Docker host available to the container, and the `volumes` mounts a volume with the host for use. Note that the web service now depends on the proxy instead of the bifurcation service. 
+    Notice that a network is declared, and that the port for the bifurcation service is just `3000` instead of `3000:3000`. This makes it only available to other containers and not from the host. The `proxy` service uses an existing proxy container that uses the `links` command to access the bifurcation service. The proxy by default exposes port 80, so that is mapped back to `3000`. The `environment` section makes certain environment variables set by the Docker host available to the container, and the `volumes` mounts a volume with the host for use. Note that the web service now depends on the proxy instead of the bifurcation service. 
 
 2. Run `docker-compose up` and then visit the website 
 
-You shouldn't notice any difference except the console information from the proxy. That's because only one instance of the bifurcation service is running. 
+    You shouldn't notice any difference except the console information from the proxy. That's because only one instance of the bifurcation service is running. 
 
 3. Without stopping the current services, open a new command line prompt or console and type the following command: `docker-compose scale bifurcation=4`. You should see three more services created and started. 
 

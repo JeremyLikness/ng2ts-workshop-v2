@@ -22,7 +22,7 @@ Create a new project `ng new data-binding`
 
 2. Add this to `color\color.component.css`: 
 
-```css
+    ```css
     div {
         width: 100px; 
         height: 100px; 
@@ -34,7 +34,7 @@ Create a new project `ng new data-binding`
 ```
 3. In `color\color.component.ts` create properties for red, green, and blue and initialize to a default value of 127:
 
-```TypeScript
+    ```TypeScript
     public red: number = 127;
     public green: number = 127;
     public blue: number = 127;
@@ -42,7 +42,7 @@ Create a new project `ng new data-binding`
 
 4. Update `color\color.component.html` to data-bind the background:
 
-```html
+    ```html
     <div [style.background]="'rgb(' + red + ',' + green + ',' + blue + ')'">
     </div>
 ```
@@ -51,12 +51,12 @@ Create a new project `ng new data-binding`
     `ng g component slider` 
 6. Update `slider\slider.component.ts` to expose a property for the value:
 
-```TypeScript
+    ```TypeScript
 public value: number = 0;
 ```
 7. Update `slider\slider.component.html` to expose and data-bind the value:
 
-```html
+    ```html
     <input type="range" [(ngModel)]="value" min="0" max="255"/>
     {{value}}
 ```
@@ -65,20 +65,20 @@ public value: number = 0;
     `ng g component color-slider` 
 9. Create the properties for the colors in `color-slider\color-slider.component.ts`:
 
-```TypeScript 
+    ```TypeScript 
     public color: string = 'red'; 
     public colorValue: number = 127;
 ```
 10. Try to data-bind the property to the child components in `color-slider\color-slider.component.html`: 
 
-```html
+    ```html
     <h2>{{color}}</h2>
     <app-color [red]="colorValue" [green]="colorValue" [blue]="colorValue"></app-color> 
     <app-slider [value]="colorValue"></app-slider>
 ```
 Notice you receive an error (can't bind to 'red|green|blue' because it isn't a known property of 'app-color', etc.)! This is because the properties weren't explicitly exposed for external data-binding, only internal data-binding between the components and their templates. Go ahead and add the sliders to the main `app.component.html` anyway: 
 
-```html
+    ```html
     <app-color-slider [color]="'red'"></app-color-slider>
     <app-color-slider [color]="'green'"></app-color-slider>
     <app-color-slider [color]="'blue'"></app-color-slider>
@@ -89,12 +89,12 @@ Inputs allow you to specify what properties are available for data-binding. You 
 
 1. Whenever you need to expose an `Input`, import it from `@angular/core` (for the `color.component`): 
 
-```TypeScript
+    ```TypeScript
 import { Component, OnInit, Input } from '@angular/core';
 ```
 2. Give the color component inputs for red, green, and blue properties:     
 
-```TypeScript
+    ```TypeScript
     @Input()
     public red: number = 127;
 
@@ -106,13 +106,13 @@ import { Component, OnInit, Input } from '@angular/core';
 ```
 3. Give the slider component an input for the values:  
 
-```TypeScript
+    ```TypeScript
     @Input()
     public value: number = 0;
 ```
 4. Give the color-slider component an input for its values: 
 
-```TypeScript
+    ```TypeScript
     @Input()
     public color: string = 'red'; 
 
@@ -131,7 +131,7 @@ As you can see, the data-binding flows through inputs but is only one-way. To ma
 
 2. Refactor the component to use a getter and setter for the properties: 
 
-```TypeScript
+    ```TypeScript
     private _value: number;
     
     @Input()
@@ -147,7 +147,7 @@ This way you can intercept whenever a change is passed into the value.
 
 3. Next, add an `EventEmitter` to raise a custom event whenever the value changes, and update the setter to use the event: 
 
-```TypeScript
+    ```TypeScript
     @Output()
     public valueChange: EventEmitter<number> = new EventEmitter<number>();
 
@@ -162,20 +162,20 @@ This way you can intercept whenever a change is passed into the value.
 ```
 4. Finally, listen to the event in `color\color-slider.html` and use it to refresh the value: 
 
-```html
+    ```html
     <app-slider [value]="colorValue" (valueChange)="colorValue=$event"></app-slider> 
 ```
 
-Compile and run the application, and you should see the shades of the squares change! Now let's roll these all up to a parent color component. 
+    Compile and run the application, and you should see the shades of the squares change! Now let's roll these all up to a parent color component. 
 
->Note: you can use a shorthand notation for two-way data-binding. When you give the event emitter the same name as the input property, and add `Change` to the end, Angular can infer the relationship because on the naming convention. Therefore, instead of explicitly handling the change event, you can change the line above to this instead: 
->```html 
-><app-slider [(value)]="colorValue"></app-slider> 
->```
+    >Note: you can use a shorthand notation for two-way data-binding. When you give the event emitter the same name as the input property, and add `Change` to the end, Angular can infer the relationship because on the naming convention. Therefore, instead of explicitly handling the change event, you can change the line above to this instead: 
+    >```html 
+    ><app-slider [(value)]="colorValue"></app-slider> 
+    >```
 
 5. Add an event to the color slider component: 
 
-```TypeScript
+    ```TypeScript
     import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
     @Component({
@@ -215,14 +215,14 @@ Compile and run the application, and you should see the shades of the squares ch
 ```
 6. Add red, green, and blue properties to `app.component.ts`:
 
-```TypeScript 
+    ```TypeScript 
     public red: number = 64;
     public green: number = 128; 
     public blue: number = 192; 
 ```
 7. Finally, update `app.component.html` to interact between the three sliders and add a new color square. Enjoy! 
 
-```html
+    ```html
     <h1>
         {{title}}
     </h1>

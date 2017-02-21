@@ -16,7 +16,7 @@ See [Improving the State of your App with Redux](http://developer.telerik.com/to
 
 5. Add `state.ts`: 
 
-```TypeScript
+    ```TypeScript
 export class State {
     public red: number;
     public green: number;
@@ -26,7 +26,7 @@ export class State {
 
 6. Add `actions.ts`: 
 
-```TypeScript 
+    ```TypeScript 
 import { Action } from 'redux';
 
 export interface IColorChangeAction extends Action {
@@ -39,11 +39,11 @@ export const changeColor = (color: string, value: number) => ({
 } as IColorChangeAction);
 ```
 
-Actions simply notify a potential change of state. A reducer responds to an action by returning a new state. 
+    Actions simply notify a potential change of state. A reducer responds to an action by returning a new state. 
 
 7. Add `reducer.ts`: 
 
-```TypeScript
+    ```TypeScript
 import { State } from './state';
 import { IColorChangeAction } from './actions';
 
@@ -65,11 +65,11 @@ export const colorReducer = (state: State, action: IColorChangeAction) => {
 }
 ```
 
-Because state is immutable, the original state cannot be modified. Therefore, if a valid action exists, a copy of the state is created and then the corresponding property (based on the type) is updated. If the action is null, either the existing state is passed back or, in the case of the very first time it is called, an initial state with default values is passed. 
+    Because state is immutable, the original state cannot be modified. Therefore, if a valid action exists, a copy of the state is created and then the corresponding property (based on the type) is updated. If the action is null, either the existing state is passed back or, in the case of the very first time it is called, an initial state with default values is passed. 
 
 8. Initialize the store in the `app.module.ts`:
 
-```TypeScript
+    ```TypeScript
 import { State } from './store/state';
 import { colorReducer } from './store/reducer';
 
@@ -80,14 +80,13 @@ export const storeFactory = () => createStore(colorReducer);
 //..etc..
 
 providers: [{provide: 'appStore', useFactory: storeFactory}],
-
 ```
 
-This uses a literal to provide the store, and a factory so the creation is deferred until Angular is ready for it. 
+    This uses a literal to provide the store, and a factory so the creation is deferred until Angular is ready for it. 
 
 9. Import the store into the `app.component.ts` and listen to changes. 
 
-```TypeScript 
+    ```TypeScript 
 import { Component, Inject } from '@angular/core';
 import { Store } from 'redux';
 import { State } from './store/state';
@@ -120,7 +119,7 @@ export class AppComponent {
 
 10. Update `app.component.html` and remove the two-way bindings to the `color-slider` controls: 
 
-```html
+    ```html
 <h1>
   {{title}}
 </h1>
@@ -132,7 +131,7 @@ export class AppComponent {
 
 11. Update `color-slider.component.ts` to subscribe to the store and consume/publish changes: 
 
-```TypeScript 
+    ```TypeScript 
 import { Component, OnInit, Input, Inject } from '@angular/core';
 
 import { Store } from 'redux';
@@ -183,8 +182,3 @@ export class ColorSliderComponent implements OnInit {
 ```
 
 Now the application will execute as before. The difference is that the changes dispatched from the color component are consumed by the app component. Although this may seem more complicated for the simple application scenario, more complex apps benefit tremendously from this approach. See [An Adventure in Redux: Building redux-adventure](http://csharperimage.jeremylikness.com/2016/07/an-adventure-in-redux-building-redux.html) for a more comprehensive example.
-
-
-
-
-

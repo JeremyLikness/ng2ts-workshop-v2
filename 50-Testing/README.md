@@ -6,11 +6,11 @@
 
 3. Run the suite of tests: `ng test --watch=false --single-run=true` 
 
-This will open Chrome as the default browser and run around 600 unit tests. 
+    This will open Chrome as the default browser and run around 600 unit tests. 
 
 4. Repeat the command but add `--browsers=PhantomJS` 
 
-This is a "headless" browser that can run without a UI and therefore is suited well for automated tests. Read more about this in [Integrating Angular 2 Unit Tests](http://csharperimage.jeremylikness.com/2016/12/integrating-angular-2-unit-tests-with.html). 
+    This is a "headless" browser that can run without a UI and therefore is suited well for automated tests. Read more about this in [Integrating Angular 2 Unit Tests](http://csharperimage.jeremylikness.com/2016/12/integrating-angular-2-unit-tests-with.html). 
 
 5. Explore the [JUnit Reporter](https://github.com/karma-runner/karma-junit-reporter) for Karma. This outputs the test results to ingest into your build service.
 

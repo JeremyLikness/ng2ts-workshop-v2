@@ -8,7 +8,7 @@
 
 3. Paste the following code for the planets list: 
 
-```TypeScript 
+    ```TypeScript 
 import { Injectable } from '@angular/core';
 
 export interface IPlanet {
@@ -83,7 +83,7 @@ export class PlanetsService {
 
 6. Update the html for `planets.component.html` 
 
-```html
+    ```html
 <ul>
   <li *ngFor="let planet of planets">{{planet.Name}}</li>
 </ul>
@@ -91,7 +91,7 @@ export class PlanetsService {
 
 7. Update the component `planets.component.ts` code: 
 
-```TypeScript
+    ```TypeScript
 import { Component, OnInit } from '@angular/core';
 
 import { PlanetsService, IPlanet } from '../planets.service';
@@ -116,7 +116,7 @@ export class PlanetsComponent implements OnInit {
 
 8. Update the route `app-routing.module.ts` to default to the planets component: 
 
-```TypeScript 
+    ```TypeScript 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -152,7 +152,7 @@ Routes are more useful when they resolve to specific assets or resources, so you
 
 2. Populate the HTML for `planet-detail.component.html`: 
 
-```html
+    ```html
 <h2>{{Name}}</h2>
 <ul>
   <li>Mass: {{Mass}} times the mass of earth 
@@ -162,7 +162,7 @@ Routes are more useful when they resolve to specific assets or resources, so you
 
 3. Add a method to `planets.service.ts` to search for planet by name: 
 
-```TypeScript
+    ```TypeScript
 public getPlanet(name: string): IPlanet {
     for (let i = 0; i < this._planets.length; i+=1) {
       if (this._planets[i].Name === name) {
@@ -175,7 +175,7 @@ public getPlanet(name: string): IPlanet {
 
 4. Update the code for `planet-detail.component.ts`: 
 
-```TypeScript 
+    ```TypeScript 
 import { Component, OnInit } from '@angular/core';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -216,24 +216,24 @@ export class PlanetDetailComponent implements OnInit {
 }
 ```
 
-Notice two imports are used. First, the `ActivatedRoute` provides access to the route being used, and therefore any associated route parameters. This example expects a parameter named `planet` to provide the planet name. If the planet is found, the properties are set. If not, the `Router` is used to navigate back to the planets list. 
+    Notice two imports are used. First, the `ActivatedRoute` provides access to the route being used, and therefore any associated route parameters. This example expects a parameter named `planet` to provide the planet name. If the planet is found, the properties are set. If not, the `Router` is used to navigate back to the planets list. 
 
 5. Import the new detail into the routing module `app-routing.module.ts`: 
 
-```TypeScript
+    ```TypeScript
 import { PlanetDetailComponent } from './planet-detail/planet-detail.component';
 ```
 
 6. Add a route with a route parameter: 
 
-```TypeScript
+    ```TypeScript
 {
     path: 'planets/:planet',
     component: PlanetDetailComponent
   },
 ```
 
-Notice the `:planet` is used to name the parameter. This is a placeholder that will be replaced by the actual value in the live route.
+    Notice the `:planet` is used to name the parameter. This is a placeholder that will be replaced by the actual value in the live route.
 
 7. Run the application and navigate to a bad route: [http://localhost:4200/planets/Luna](http://localhost:4200/planets/Luna). Notice you are kicked back to the `/planets` route. 
 
@@ -245,7 +245,7 @@ Currently you must manually navigate. You saw how to programmatically navigate u
 
 1. Modify `planets.component.html` to data-bind the route as a link in the list: 
 
-```html
+    ```html
 <ul>
   <li *ngFor="let planet of planets"><a [routerLink]="'/planets/' + planet.Name">{{planet.Name}}</a></li>
 </ul>
@@ -255,11 +255,8 @@ Currently you must manually navigate. You saw how to programmatically navigate u
 
 3. Add a link that simply uses the attribute (without data-binding) to return to the main list: 
 
-```html
+    ```html
 <a routerLink="/planets">Go Back</a>
 ```
 
 4. Run the app and navigate back and forth
-
- 
-

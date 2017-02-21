@@ -14,7 +14,7 @@ RxJS, or [ReactiveX](http://reactivex.io/), is a library that implements a speci
 
 4. Populate the HTML `reader\reader.component.html` with a simple dropdown and click action: 
 
-```html
+    ```html
     <select #selection>
         <option id="sample.dat" selected="selected">Bad File</option>
         <option id="sample.txt">Good File</option>
@@ -24,7 +24,7 @@ RxJS, or [ReactiveX](http://reactivex.io/), is a library that implements a speci
 ```
 5. Edit the component code to issue an HTTP call and subscribe to the result:
 
-```TypeScript 
+    ```TypeScript 
     import { Component, OnInit } from '@angular/core';
 
     import { Http } from '@angular/http';
@@ -52,23 +52,29 @@ RxJS, or [ReactiveX](http://reactivex.io/), is a library that implements a speci
 ```
 6. Add the component to `app.component.html` 
 
-```html
+    ```html
     <app-reader></app-reader>
 ```
-
 7. Compile and run and observe the difference between selecting the file that is there and the file that is not. 
 
 ## Debouncing 
 
 1. For a more complex stream, paste the following text to `assets\sample.txt`: 
 
-```
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eget placerat. Nulla facilisi. Aliquam tristique ante sit amet dictum sollicitudin. Proin varius vehicula gravida. Fusce lectus metus, condimentum sed auctor in, dictum ac sem. Cras laoreet pulvinar nibh, sed luctus mi cursus sit amet. Praesent ultricies lobortis iaculis. Sed placerat lorem nec ultricies luctus. Donec quis dui faucibus ante egestas finibus. Nulla luctus tellus sed dapibus placerat. Mauris venenatis sollicitudin ornare. Cras dapibus, lectus eget consectetur dignissim, ipsum magna accumsan leo, ac volutpat lectus turpis ut nisl. Mauris quis justo nisl. Duis semper condimentum ullamcorper. Fusce tempus sapien id nunc dapibus, eget interdum arcu tristique.
+    ```
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eget placerat. 
+Nulla facilisi. Aliquam tristique ante sit amet dictum sollicitudin. Proin varius vehicula gravida. 
+Fusce lectus metus, condimentum sed auctor in, dictum ac sem. Cras laoreet pulvinar nibh, sed 
+luctus mi cursus sit amet. Praesent ultricies lobortis iaculis. Sed placerat lorem nec ultricies 
+luctus. Donec quis dui faucibus ante egestas finibus. Nulla luctus tellus sed dapibus placerat. 
+Mauris venenatis sollicitudin ornare. Cras dapibus, lectus eget consectetur dignissim, ipsum magna
+accumsan leo, ac volutpat lectus turpis ut nisl. Mauris quis justo nisl. Duis semper condimentum
+ullamcorper. Fusce tempus sapien id nunc dapibus, eget interdum arcu tristique.
 ```
 
 2. Remove the button, and add an `input` tag to the top of the `reader\reader.component.html` markup: 
 
-```html
+    ```html
     <input #filter type="text" placeholder="enter filter" 
         (keyup)="loadFile(filter.value, selection.options[selection.selectedIndex].id)"/>
 ```
@@ -76,7 +82,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
 
 3. Implement the function to filter words based on user input in `reader\reader.component.ts`: 
 
-```TypeScript 
+    ```TypeScript 
     public loadFile(filter: string, fileName: string): void {
         this.http.get('assets/' + fileName)
         .subscribe(result =>
@@ -95,13 +101,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
 
 5. Simplify the input tag to this: 
 
-```html
+    ```html
 <input #filter type="text" placeholder="enter filter"/>
 ```
 
 6. Update the `reader\reader.component.ts` to use observables to watch the input events, debounce, avoid duplicates, etc.: 
 
-```TypeScript
+    ```TypeScript
     import { Component, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 
     import { Http } from '@angular/http';
@@ -157,7 +163,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
 
 3. Place this code in `get-date.service.ts`:
 
-```TypeScript 
+    ```TypeScript 
     import { Injectable } from '@angular/core';
     import { Observable } from 'RxJs';
 
@@ -174,19 +180,18 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi rutrum ac nisi eg
 ```
 4. Import the date service into `reader\reader.component.ts`: 
 
-```TypeScript 
+    ```TypeScript 
 import { GetDateService } from '../get-date.service';
 ```
 5. Expose an array for dates and inject the date service into the constructor: 
 
-```TypeScript 
+    ```TypeScript 
     public dates: Date[] = [];
     constructor(private http: Http, private change: ChangeDetectorRef, private svc: GetDateService) { }
 ```
-
 6. Add the following code to poll to the end of the `ngAfterViewInit` method. This will poll the date service every second, and stop after 10 polls. You can remove the `take` statement to continuously poll, and just as easily change the service to an http call instead of a date service call for real world scenarios. 
 
-```TypeScript
+    ```TypeScript
     Observable.interval(1000).switchMap(() => this.svc.getDate())
         .take(10)
         .subscribe(date => this.dates.push(date));
@@ -194,7 +199,7 @@ import { GetDateService } from '../get-date.service';
 
 7. Update `reader\reader.component.html` to show the time portion of the dates (add this to the end): 
 
-```html
+    ```html
     <h2>Times</h2>
     <span *ngFor="let date of dates">{{date | date:'mm:ss'}}&nbsp;</span>
 ```
